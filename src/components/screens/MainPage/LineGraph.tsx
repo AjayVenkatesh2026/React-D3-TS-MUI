@@ -15,16 +15,17 @@ import {
   Typography,
 } from "@mui/material";
 import { MONTHS } from "../../../constants/dasboard";
-import { formatNumber } from "../../../utils";
+import { formatNumber, getLineGraphData } from "../../../utils";
 import useWindowResize from "../../../hooks/useWindowResize";
 
 const d3 = require("d3");
 const MARGIN = 16;
 
 const LineGraph = (props: PropsWithChildren<{ data: number[] }>) => {
-  const { data = [] } = props;
+  const { data } = props;
   const [option, setOption] = useState<string>("manage");
   const [month, setMonth] = useState<string>(MONTHS[0]);
+  const [accountData, setAccountData] = useState<number[]>(data);
   const svgRef = useRef<SVGSVGElement>(null);
   const boxRef = useRef<any>(null);
 
@@ -43,13 +44,13 @@ const LineGraph = (props: PropsWithChildren<{ data: number[] }>) => {
     svg.selectAll("g").remove();
     svg.selectAll("path").remove();
 
-    const maxNumber = Math.max(...data);
+    const maxNumber = Math.max(...accountData);
 
     // setting the scaling
     // xscales
     const xScale = d3
       .scaleLinear()
-      .domain([0, data.length - 1])
+      .domain([0, accountData.length - 1])
       .range([0, w]);
     //yscales
     const yScale = d3
@@ -67,7 +68,7 @@ const LineGraph = (props: PropsWithChildren<{ data: number[] }>) => {
     // setting the axes
     const xAxisGenerator = d3
       .axisBottom(xScale)
-      .ticks(1 + data.length)
+      .ticks(1 + accountData.length)
       .tickFormat((i: number) => formatNumber(i + 1));
 
     const xAxis = svg
@@ -81,25 +82,27 @@ const LineGraph = (props: PropsWithChildren<{ data: number[] }>) => {
     // setting up the data for the svg
     svg
       .selectAll()
-      .data([data])
+      .data([accountData])
       .join("path")
       .attr("d", (d: any) => generateScaledLine(d))
       .attr("fill", "none")
       .attr("stroke", lightGreen);
-  }, [data]);
+  }, [accountData]);
 
   useEffect(() => {
     drawLineGraph();
-  }, [data, drawLineGraph]);
+  }, [accountData, drawLineGraph]);
 
   useWindowResize({ callback: drawLineGraph });
 
   const handleOptionChange = (e: SelectChangeEvent<string>) => {
     setOption(e?.target?.value || "manage");
+    setAccountData(getLineGraphData());
   };
 
   const handleMonthChange = (e: SelectChangeEvent<string>) => {
     setMonth(e?.target?.value || MONTHS[0]);
+    setAccountData(getLineGraphData());
   };
 
   return (

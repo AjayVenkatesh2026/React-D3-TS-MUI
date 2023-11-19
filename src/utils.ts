@@ -74,4 +74,4 @@ const getRandamoizedGraphsData = () => {
   };
 };
 
-export { formatNumber, getRandamoizedGraphsData };
+export { formatNumber, getRandamoizedGraphsData, getLineGraphData };
