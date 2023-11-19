@@ -4,6 +4,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import DescriptionIcon from "@mui/icons-material/Description";
 import PersonIcon from "@mui/icons-material/Person";
 import ContactsIcon from "@mui/icons-material/Contacts";
+import { leafGreen, lightGreen } from "./colors";
 
 const DRAWER_MENU = [
   {
@@ -62,4 +63,30 @@ const INVOICE_GRAPH_LABELS = [
   "Future",
 ];
 
-export { DRAWER_MENU, MONTHS, INVOICE_GRAPH_LABELS };
+const CASH_FLOW_GRAPH_LABELS = [
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+  "January",
+];
+
+const CASH_FLOW_GRAPH_BADGES = [
+  {
+    color: leafGreen,
+    label: "In",
+  },
+  {
+    color: lightGreen,
+    label: "Out",
+  },
+];
+
+export {
+  DRAWER_MENU,
+  MONTHS,
+  INVOICE_GRAPH_LABELS,
+  CASH_FLOW_GRAPH_LABELS,
+  CASH_FLOW_GRAPH_BADGES,
+};

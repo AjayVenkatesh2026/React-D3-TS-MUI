@@ -28,14 +28,31 @@ const getInvoiceGraphData = () => {
   return getRandomizedData({ min: 25, max: 100, len: 6 });
 };
 
+const getCashFlowGraphData = () => {
+  const inFlowData = getRandomizedData({ min: 25, max: 100, len: 6 });
+  const outFlowData = [];
+  for (const i of inFlowData) {
+    const min = Math.max(15, Math.floor(i / 2));
+    const max = Math.max(i - 15, min);
+    outFlowData.push(getRandomNumber(min, max));
+  }
+
+  return {
+    inFlowData,
+    outFlowData,
+  };
+};
+
 const getRandamoizedGraphsData = () => {
   const lineGraphData = getLineGraphData();
   const invoiceGraphData = getInvoiceGraphData();
+  const cashFlowGraphData = getCashFlowGraphData();
 
   return {
     lineGraphData,
     invoiceGraphData,
+    cashFlowGraphData,
   };
 };
 
-export { formatNumber, getRandamoizedGraphsData, getInvoiceGraphData };
+export { formatNumber, getRandamoizedGraphsData };
