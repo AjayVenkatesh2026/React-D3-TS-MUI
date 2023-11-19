@@ -24,9 +24,19 @@ interface ITableItem {
   ytd?: string;
 }
 
+interface IGraphsData {
+  lineGraphData: number[];
+  invoiceGraphData: number[];
+  cashFlowGraphData: {
+    inFlowData: number[];
+    outFlowData: number[];
+  };
+  accountWatchlistTableData: ITableItem[];
+}
 export type {
   IPersistentDrawer,
   IPersistentDrawerMenuItem,
   TDimensions,
   ITableItem,
+  IGraphsData,
 };

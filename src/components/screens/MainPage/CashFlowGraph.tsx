@@ -1,4 +1,4 @@
-import { PropsWithChildren, useCallback, useRef } from "react";
+import { PropsWithChildren, useCallback, useEffect, useRef } from "react";
 import { Box, Divider, Typography } from "@mui/material";
 import { lightGreen, leafGreen } from "../../../constants/colors";
 import {
@@ -12,7 +12,7 @@ const d3 = require("d3");
 const MARGIN = 16;
 const BAR_WIDTH = 12;
 
-const InvoicesGraph = (
+const CashFlowGraph = (
   props: PropsWithChildren<{
     data: { inFlowData: number[]; outFlowData: number[] };
   }>
@@ -21,7 +21,7 @@ const InvoicesGraph = (
   const svgRef = useRef<SVGSVGElement>(null);
   const boxRef = useRef<any>(null);
 
-  const drawInvoicesGraph = useCallback(() => {
+  const drawCashFlowGraph = useCallback(() => {
     const w = boxRef.current.clientWidth - MARGIN;
     const h = boxRef.current.clientHeight - MARGIN;
 
@@ -88,7 +88,11 @@ const InvoicesGraph = (
       .attr("class", "shadow");
   }, [data]);
 
-  useWindowResize({ callback: drawInvoicesGraph });
+  useEffect(() => {
+    drawCashFlowGraph();
+  }, [data, drawCashFlowGraph]);
+
+  useWindowResize({ callback: drawCashFlowGraph });
 
   return (
     <Box
@@ -133,4 +137,4 @@ const InvoicesGraph = (
   );
 };
 
-export default InvoicesGraph;
+export default CashFlowGraph;

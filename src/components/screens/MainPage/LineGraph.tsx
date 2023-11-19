@@ -1,4 +1,10 @@
-import { PropsWithChildren, useCallback, useRef, useState } from "react";
+import {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { lightGreen } from "../../../constants/colors";
 import {
   Box,
@@ -81,6 +87,10 @@ const LineGraph = (props: PropsWithChildren<{ data: number[] }>) => {
       .attr("fill", "none")
       .attr("stroke", lightGreen);
   }, [data]);
+
+  useEffect(() => {
+    drawLineGraph();
+  }, [data, drawLineGraph]);
 
   useWindowResize({ callback: drawLineGraph });
 

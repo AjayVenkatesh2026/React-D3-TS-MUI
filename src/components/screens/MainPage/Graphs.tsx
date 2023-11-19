@@ -3,15 +3,17 @@ import LineGraph from "./LineGraph";
 import InvoicesGraph from "./InvoicesGraph";
 import CashFlowGraph from "./CashFlowGraph";
 import WatchListTable from "./WatchListTable";
-import { getRandamoizedGraphsData } from "../../../utils";
+import { PropsWithChildren } from "react";
+import { IGraphsData } from "../../../types/MainPage";
 
-const Graphs = () => {
+const Graphs = (props: PropsWithChildren<{ data: IGraphsData }>) => {
+  const { data } = props;
   const {
     lineGraphData,
     invoiceGraphData,
     cashFlowGraphData,
     accountWatchlistTableData,
-  } = getRandamoizedGraphsData();
+  } = data;
 
   return (
     <Box

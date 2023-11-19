@@ -1,9 +1,10 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import {
   AppBar,
   Avatar,
   Badge,
   Box,
+  Button,
   IconButton,
   Input,
   Toolbar,
@@ -13,7 +14,9 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
-const ScreenAppBar = () => {
+const ScreenAppBar = (props: PropsWithChildren<{ randomize: () => void }>) => {
+  const { randomize } = props;
+
   return (
     <AppBar position="static" sx={{ boxShadow: "0px 0px 1px 0px gray" }}>
       <Toolbar
@@ -31,6 +34,9 @@ const ScreenAppBar = () => {
           />
         </Box>
         <Box sx={{ ...Containers.rowStartCenter, gap: "1rem" }}>
+          <Button variant="outlined" onClick={randomize}>
+            Randomize
+          </Button>
           <Box
             sx={{
               ...Containers.rowStartCenter,

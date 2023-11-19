@@ -1,4 +1,4 @@
-import { PropsWithChildren, useCallback, useRef } from "react";
+import { PropsWithChildren, useCallback, useEffect, useRef } from "react";
 import { Box, Divider, Typography } from "@mui/material";
 import { bgBlue, lightGreen, darkGreen } from "../../../constants/colors";
 import { INVOICE_GRAPH_LABELS } from "../../../constants/dasboard";
@@ -61,6 +61,10 @@ const InvoicesGraph = (props: PropsWithChildren<{ data: number[] }>) => {
       .attr("rx", "4")
       .attr("ry", "4");
   }, [data]);
+
+  useEffect(() => {
+    drawInvoicesGraph();
+  }, [data, drawInvoicesGraph]);
 
   useWindowResize({ callback: drawInvoicesGraph });
 
