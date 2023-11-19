@@ -14,6 +14,8 @@ const Graphs = () => {
         flexWrap: "wrap",
         padding: "2rem",
         backgroundColor: "#f5f5f5",
+        gap: "2%",
+        rowGap: "1rem",
       }}
     >
       <LineGraph data={lineGraphData} />

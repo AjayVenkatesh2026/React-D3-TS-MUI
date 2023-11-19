@@ -13,4 +13,9 @@ interface IPersistentDrawer {
   menuItems: IPersistentDrawerMenuItem[];
 }
 
-export type { IPersistentDrawer, IPersistentDrawerMenuItem };
+type TDimensions = {
+  width: undefined | number;
+  height: undefined | number;
+};
+
+export type { IPersistentDrawer, IPersistentDrawerMenuItem, TDimensions };

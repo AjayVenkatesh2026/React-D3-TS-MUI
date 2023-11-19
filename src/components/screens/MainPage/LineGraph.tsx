@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useRef, useState } from "react";
+import { PropsWithChildren, useCallback, useRef, useState } from "react";
 import { lightGreen } from "../../../constants/colors";
 import {
   Box,
@@ -10,9 +10,10 @@ import {
 } from "@mui/material";
 import { MONTHS } from "../../../constants/dasboard";
 import { formatNumber } from "../../../utils";
+import useWindowResize from "../../../hooks/useWindowResize";
 
 const d3 = require("d3");
-const PADDING = 16;
+const MARGIN = 16;
 
 const LineGraph = (props: PropsWithChildren<{ data: number[] }>) => {
   const { data = [] } = props;
@@ -21,10 +22,10 @@ const LineGraph = (props: PropsWithChildren<{ data: number[] }>) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const boxRef = useRef<any>(null);
 
-  useEffect(() => {
+  const drawLineGraph = useCallback(() => {
     // setting up svg
-    const w = boxRef.current.clientWidth - PADDING;
-    const h = boxRef.current.clientHeight - PADDING;
+    const w = boxRef.current.clientWidth - MARGIN;
+    const h = boxRef.current.clientHeight - MARGIN;
 
     const svg = d3
       .select(svgRef.current)
@@ -66,20 +67,22 @@ const LineGraph = (props: PropsWithChildren<{ data: number[] }>) => {
     const xAxis = svg
       .append("g")
       .call(xAxisGenerator)
-      .attr("transform", `translate(0,${h - 16})`);
+      .attr("transform", `translate(0,${h})`);
 
     xAxis.select(".domain").remove();
     xAxis.selectAll(".tick line").attr("display", "none");
 
     // setting up the data for the svg
     svg
-      .selectAll(".line")
+      .selectAll()
       .data([data])
       .join("path")
       .attr("d", (d: any) => generateScaledLine(d))
       .attr("fill", "none")
       .attr("stroke", lightGreen);
   }, [data]);
+
+  useWindowResize({ callback: drawLineGraph });
 
   const handleOptionChange = (e: SelectChangeEvent<string>) => {
     setOption(e?.target?.value || "manage");
@@ -96,6 +99,10 @@ const LineGraph = (props: PropsWithChildren<{ data: number[] }>) => {
         borderRadius: "12px",
         display: "flex",
         flexDirection: "column",
+        width: "49%",
+        height: "20rem",
+        minWidth: "400px",
+        minHeight: "300px",
       }}
     >
       <Box
@@ -149,7 +156,7 @@ const LineGraph = (props: PropsWithChildren<{ data: number[] }>) => {
         </Box>
       </Box>
       <Divider />
-      <Box ref={boxRef} sx={{ padding: `${PADDING}px` }}>
+      <Box ref={boxRef} sx={{ margin: `${MARGIN}px`, flex: 1 }}>
         <svg ref={svgRef}></svg>
       </Box>
     </Box>
