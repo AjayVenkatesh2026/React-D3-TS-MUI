@@ -1,5 +1,5 @@
 import React from "react";
-import MainPage from "./components/screens/MainPage";
+import MainPage from "./components/screens/MainPage/MainPage";
 
 function App() {
   return (
