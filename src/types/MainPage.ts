@@ -18,4 +18,15 @@ type TDimensions = {
   height: undefined | number;
 };
 
-export type { IPersistentDrawer, IPersistentDrawerMenuItem, TDimensions };
+interface ITableItem {
+  account?: string;
+  month?: string;
+  ytd?: string;
+}
+
+export type {
+  IPersistentDrawer,
+  IPersistentDrawerMenuItem,
+  TDimensions,
+  ITableItem,
+};

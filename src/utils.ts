@@ -1,3 +1,6 @@
+import { ACCOUNT_LABELS } from "./constants/dasboard";
+import { ITableItem } from "./types/MainPage";
+
 const formatNumber = (n: number): string => {
   if (n >= 0 && n <= 9) {
     return `0${n}`;
@@ -43,15 +46,31 @@ const getCashFlowGraphData = () => {
   };
 };
 
+const getAccountWatchlistTableData = () => {
+  const ans = [];
+
+  for (let i = 0; i < ACCOUNT_LABELS.length; i++) {
+    const a: ITableItem = {};
+    a.account = ACCOUNT_LABELS[i];
+    a.month = getRandomNumber(0, 12000).toFixed(2);
+    a.ytd = getRandomNumber(0, 12000).toFixed(2);
+    ans.push(a);
+  }
+
+  return ans;
+};
+
 const getRandamoizedGraphsData = () => {
   const lineGraphData = getLineGraphData();
   const invoiceGraphData = getInvoiceGraphData();
   const cashFlowGraphData = getCashFlowGraphData();
+  const accountWatchlistTableData = getAccountWatchlistTableData();
 
   return {
     lineGraphData,
     invoiceGraphData,
     cashFlowGraphData,
+    accountWatchlistTableData,
   };
 };
 

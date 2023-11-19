@@ -1,12 +1,17 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import LineGraph from "./LineGraph";
 import InvoicesGraph from "./InvoicesGraph";
 import CashFlowGraph from "./CashFlowGraph";
+import WatchListTable from "./WatchListTable";
 import { getRandamoizedGraphsData } from "../../../utils";
 
 const Graphs = () => {
-  const { lineGraphData, invoiceGraphData, cashFlowGraphData } =
-    getRandamoizedGraphsData();
+  const {
+    lineGraphData,
+    invoiceGraphData,
+    cashFlowGraphData,
+    accountWatchlistTableData,
+  } = getRandamoizedGraphsData();
 
   return (
     <Box
@@ -24,7 +29,7 @@ const Graphs = () => {
       <LineGraph data={lineGraphData} />
       <InvoicesGraph data={invoiceGraphData} />
       <CashFlowGraph data={cashFlowGraphData} />
-      <Typography variant="h4">Hello</Typography>
+      <WatchListTable data={accountWatchlistTableData} />
     </Box>
   );
 };

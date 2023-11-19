@@ -83,10 +83,19 @@ const CASH_FLOW_GRAPH_BADGES = [
   },
 ];
 
+const ACCOUNT_LABELS = [
+  "Sales",
+  "Advertising",
+  "Inventory",
+  "Entertainment",
+  "Product",
+];
+
 export {
   DRAWER_MENU,
   MONTHS,
   INVOICE_GRAPH_LABELS,
   CASH_FLOW_GRAPH_LABELS,
   CASH_FLOW_GRAPH_BADGES,
+  ACCOUNT_LABELS,
 };
