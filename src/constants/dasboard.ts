@@ -53,4 +53,13 @@ const MONTHS = [
   "December",
 ];
 
-export { DRAWER_MENU, MONTHS };
+const INVOICE_GRAPH_LABELS = [
+  "Older",
+  "Jan 01-08",
+  "Jan 09-16",
+  "Jan 17-24",
+  "Jan 25-31",
+  "Future",
+];
+
+export { DRAWER_MENU, MONTHS, INVOICE_GRAPH_LABELS };

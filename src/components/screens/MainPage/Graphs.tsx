@@ -1,9 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import LineGraph from "./LineGraph";
+import InvoicesGraph from "./InvoicesGraph";
 import { getRandamoizedGraphsData } from "../../../utils";
 
 const Graphs = () => {
-  const { lineGraphData } = getRandamoizedGraphsData();
+  const { lineGraphData, invoiceGraphData } = getRandamoizedGraphsData();
 
   return (
     <Box
@@ -19,7 +20,7 @@ const Graphs = () => {
       }}
     >
       <LineGraph data={lineGraphData} />
-      <Typography variant="h4">Hello</Typography>
+      <InvoicesGraph data={invoiceGraphData} />
       <Typography variant="h4">Hello</Typography>
       <Typography variant="h4">Hello</Typography>
     </Box>

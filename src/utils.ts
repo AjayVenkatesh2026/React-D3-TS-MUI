@@ -11,24 +11,31 @@ const getRandomNumber = (minNumber: number, maxNumber: number): number => {
   return Math.floor(Math.random() * gap + minNumber);
 };
 
-const getLineGraphData = () => {
-  const min = 25;
-  const max = 100;
-  const LEN = 10;
+const getRandomizedData = ({ min = 0, max = 100, len = 5 }) => {
   const ans = [];
-  for (let i = 0; i < LEN; i++) {
+  for (let i = 0; i < len; i++) {
     ans.push(getRandomNumber(min, max));
   }
 
   return ans;
 };
 
+const getLineGraphData = () => {
+  return getRandomizedData({ min: 25, max: 100, len: 10 });
+};
+
+const getInvoiceGraphData = () => {
+  return getRandomizedData({ min: 25, max: 100, len: 6 });
+};
+
 const getRandamoizedGraphsData = () => {
   const lineGraphData = getLineGraphData();
+  const invoiceGraphData = getInvoiceGraphData();
 
   return {
     lineGraphData,
+    invoiceGraphData,
   };
 };
 
-export { formatNumber, getRandamoizedGraphsData };
+export { formatNumber, getRandamoizedGraphsData, getInvoiceGraphData };
