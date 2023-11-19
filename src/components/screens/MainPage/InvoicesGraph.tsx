@@ -1,12 +1,30 @@
 import { PropsWithChildren, useCallback, useEffect, useRef } from "react";
-import { Box, Divider, Typography } from "@mui/material";
-import { bgBlue, lightGreen, darkGreen } from "../../../constants/colors";
+import { Box, Button, Divider, Typography } from "@mui/material";
+import {
+  bgBlue,
+  lightGreen,
+  darkGreen,
+  bgHoverBlue,
+} from "../../../constants/colors";
 import { INVOICE_GRAPH_LABELS } from "../../../constants/dasboard";
 import useWindowResize from "../../../hooks/useWindowResize";
+import styled from "@emotion/styled";
 
 const d3 = require("d3");
 const MARGIN = 16;
 const BAR_WIDTH = 12;
+
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
 
 const InvoicesGraph = (props: PropsWithChildren<{ data: number[] }>) => {
   const { data = [] } = props;
@@ -93,20 +111,30 @@ const InvoicesGraph = (props: PropsWithChildren<{ data: number[] }>) => {
         <Typography variant="subtitle1" sx={{ fontWeight: "700" }}>
           Invoices owned to you
         </Typography>
-        <Box
+        <Button
+          component="label"
+          variant="contained"
           sx={{
             padding: "4px 12px",
             borderRadius: "8px",
             backgroundColor: bgBlue,
+            color: darkGreen,
+            fontWeight: "600",
+            fontSize: "0.9rem",
+            textTransform: "initial",
+            ":hover": {
+              backgroundColor: bgHoverBlue,
+            },
           }}
         >
-          <Typography
-            variant="subtitle1"
-            sx={{ color: darkGreen, fontWeight: "600", fontSize: "0.9rem" }}
-          >
-            New Sales Invoice
-          </Typography>
-        </Box>
+          New Sales Invoice
+          <VisuallyHiddenInput
+            type="file"
+            onChange={(e) => {
+              console.log(e.target.value);
+            }}
+          />
+        </Button>
       </Box>
       <Divider />
       <Box ref={boxRef} sx={{ margin: `${MARGIN}px`, flex: 1 }}>
