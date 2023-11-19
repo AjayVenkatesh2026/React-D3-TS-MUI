@@ -38,4 +38,19 @@ const DRAWER_MENU = [
   },
 ];
 
-export { DRAWER_MENU };
+const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+export { DRAWER_MENU, MONTHS };
