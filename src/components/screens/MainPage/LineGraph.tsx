@@ -29,6 +29,10 @@ const LineGraph = (props: PropsWithChildren<{ data: number[] }>) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const boxRef = useRef<any>(null);
 
+  useEffect(() => {
+    setAccountData(data);
+  }, [data]);
+
   const drawLineGraph = useCallback(() => {
     // setting up svg
     const w = boxRef.current.clientWidth - MARGIN;
