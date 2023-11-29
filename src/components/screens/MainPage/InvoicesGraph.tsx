@@ -13,6 +13,7 @@ import styled from "@emotion/styled";
 const d3 = require("d3");
 const MARGIN = 16;
 const BAR_WIDTH = 12;
+const TOOLTIP_OFFSET = 8;
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -30,6 +31,7 @@ const InvoicesGraph = (props: PropsWithChildren<{ data: number[] }>) => {
   const { data = [] } = props;
   const svgRef = useRef<SVGSVGElement>(null);
   const boxRef = useRef<any>(null);
+  const divRef = useRef<any>(null);
 
   const drawInvoicesGraph = useCallback(() => {
     const w = boxRef.current.clientWidth - MARGIN;
@@ -77,7 +79,32 @@ const InvoicesGraph = (props: PropsWithChildren<{ data: number[] }>) => {
       .attr("height", (d: any) => yScale(0) - yScale(d))
       .attr("width", BAR_WIDTH)
       .attr("rx", "4")
-      .attr("ry", "4");
+      .attr("ry", "4")
+      .attr("value", (d: any) => `${d}`)
+      .on("mouseenter", (event: any) => {
+        if (divRef.current.style.visibility === "visible") {
+          return;
+        }
+
+        const x = event?.pageX + TOOLTIP_OFFSET;
+        const y = event?.pageY - TOOLTIP_OFFSET;
+        const value = event?.target?.getAttribute("value");
+
+        divRef.current.style.top = `${y}px`;
+        divRef.current.style.left = `${x}px`;
+        divRef.current.innerHTML = value;
+        divRef.current.style.visibility = "visible";
+      })
+      .on("mousemove", (event: any) => {
+        const x = event?.pageX + TOOLTIP_OFFSET;
+        const y = event?.pageY - TOOLTIP_OFFSET;
+
+        divRef.current.style.top = `${y}px`;
+        divRef.current.style.left = `${x}px`;
+      })
+      .on("mouseout", () => {
+        divRef.current.style.visibility = "hidden";
+      });
   }, [data]);
 
   useEffect(() => {
@@ -138,6 +165,18 @@ const InvoicesGraph = (props: PropsWithChildren<{ data: number[] }>) => {
       </Box>
       <Divider />
       <Box ref={boxRef} sx={{ margin: `${MARGIN}px`, flex: 1 }}>
+        <div
+          className="tooltip"
+          ref={divRef}
+          style={{
+            position: "absolute",
+            visibility: "hidden",
+            zIndex: 10,
+            color: "#333",
+            fontWeight: "700",
+            fontSize: "0.7rem",
+          }}
+        ></div>
         <svg ref={svgRef}></svg>
       </Box>
     </Box>
